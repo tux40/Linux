@@ -23,6 +23,187 @@ command line utility for querying and modifying network
 $ sudo ethtool enp0s3
 Ping (Packet Internet Grouper) is utility normally used for testing connectivity between two system on a network, It use ICMP 
 (Internet Control Message Protocol)
+$ sudo ping 192.168.1.1
+ping to exit after a specific number of echo_request , using flag the -c 
+$ sudo ping -c 4 192.168.1.1
+
+##### Traceroute Command ####
+-----------------------------
+Command line utility for tracing the full path your local system to another network system.
+$ traceroute 216.58.204.46
+
+####MTR Network Diagnostic Tool #######
+s a modern command-line network diagnostic tool that combines the functionality of ping 
+and traceroute into a single diagnostic tool. Its output is updated in real-time, by default 
+until you exit the program by pressing q.
+
+$ mtr google.com
+OR
+$ mtr 216.58.223.78
+
+-------
+Sample Output
+
+tecmint.com (0.0.0.0)                                   Thu Jul 12 08:58:27 2018
+First TTL: 1
+
+ Host                                                   Loss%   Snt   Last   Avg  Best  Wrst StDev
+ 1. 192.168.0.1                                         0.0%    41    0.5   0.6   0.4   1.7   0.2
+ 2. 5.5.5.215                                           0.0%    40    1.9   1.5   0.8   7.3   1.0
+ 3. 209.snat-111-91-120.hns.net.in                      23.1%    40    1.9   2.7   1.7  10.5   1.6
+ 4. 72.14.194.226                                       0.0%    40   89.1   5.2   2.2  89.1  13.7
+ 5. 108.170.248.193                                     0.0%    40    3.0   4.1   2.4  52.4   7.8
+ 6. 108.170.237.43                                      0.0%    40    2.9   5.3   2.5  94.1  14.4
+ 7. bom07s10-in-f174.1e100.net                          0.0%    40    2.6   6.7   2.3  79.7  16.
+-----------
+$ mtr -c 4 google.com
+
+###Route Command ###
+route is a command line utility for displaying or manipulating the IP routing table of a Linux system. 
+It is mainly used to configure static routes to specific hosts or networks via an interface.
+
+$ route
+
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         gateway         0.0.0.0         UG    100    0        0 enp0s3
+192.168.0.0     0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
+
+--
+There are numerous commands you can use to configure routing. Here are some useful ones:
+
+Add a default gateway to the routing table.
+
+$ sudo route add default gw <gateway-ip>
+
+Add a network route to the routing table.
+
+$ sudo route add -net <network ip/cidr> gw <gateway ip> <interface>
+
+Delete a specific route entry from the routing table.
+
+$ sudo route del -net <network ip/cidr>
+-------------------------------------
+
+
+#####  Nmcli Command ####
+Nmcli is an easy-to-use, scriptable command-line tool to report network status, manage network connections, and control the NetworkManager.
+--
+$ nmcli dev status
+
+DEVICE      TYPE      STATE      CONNECTION         
+virbr0      bridge    connected  virbr0             
+enp0s3      ethernet  connected  Wired connection 1 
+
+$ nmcli con show
+
+Wired connection 1  bc3638ff-205a-3bbb-8845-5a4b0f7eef91  802-3-ethernet  enp0s3 
+virbr0              00f5d53e-fd51-41d3-b069-bdfd2dde062b  bridge          virbr0 
+
+$ nmcli con show -a
+
+
+--------------------------------------
+
+#### Netstat Command ####
+
+netstat is a command line tool that displays useful information such as network connections, routing tables, interface statistics, and much more, concerning the Linux networking subsystem. 
+It is useful for network troubleshooting and performance analysis.
+-------------------------
+
+$ sudo netstat -tnlp
+
+To view kernel routing table, use the -r flag (which is equivalent to running route command above).
+$ netstat -r
+
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         gateway         0.0.0.0         UG        0 0          0 enp0s3
+192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 enp0s3
+192.168.122.0   0.0.0.0         255.255.255.0   U         0 0          0 virbr0
+
+----
+#### ss Command #####
+
+ss (socket statistics) is a powerful command line utility to investigate sockets. It dumps socket statistics and displays information similar to netstat. 
+In addition, it shows more TCP and state information compared to other similar utilities.
+
+---
+$ ss -ta
+
+State      Recv-Q Send-Q                                        Local Address:Port                                                         Peer Address:Port                
+LISTEN     0      100                                                       *:submission                                                              *:*                    
+LISTEN     0      128                                               127.0.0.1:fmpro-internal                                                          *:*                    
+LISTEN     0      100                                                       *:pop3                                                                    *:*                    
+LISTEN     0      100                                                       *:imap                                                                    *:*                    
+LISTEN     0      128                                                       *:sunrpc                                                                  *:*                    
+LISTEN     0      100                                                       *:urd                                                                     *:*                    
+LISTEN     0      128                                                       *:domain                                                                  *:*                    
+LISTEN     0      9                                                         *:ftp                                                                     *:*                    
+LISTEN     0      128                                                       *:ssh                                                                     *:*                    
+LISTEN     0      128                                               127.0.0.1:ipp                                                                     *:*                    
+LISTEN     0      100                                                       *:smtp                                                                    *:*                    
+LISTEN     0      128                                                       *:8090                                                                    *:*                    
+LISTEN     0      100                                                       *:imaps                                                                   *:*                    
+LISTEN     0      100                                                       *:pop3s                                                                   *:*                    
+ESTAB      0      0                                             192.168.0.104:ssh                                                         192.168.0.103:36398                
+ESTAB      0      0                                                 127.0.0.1:34642                                                           127.0.0.1:opsession-prxy       
+ESTAB      0      0                                                 127.0.0.1:34638                                                           127.0.0.1:opsession-prxy       
+ESTAB      0      0                                                 127.0.0.1:34644                                                           127.0.0.1:opsession-prxy       
+ESTAB      0      0                                                 127.0.0.1:34640                                                           127.0.0.1:opsession-prxy       
+LISTEN     0      80                                                       :::mysql   
+
+==================
+
+### NC Command ####
+NC (NetCat) also referred to as the “Network Swiss Army knife”, is a powerful utility used for almost any task related to TCP, UDP, or UNIX-domain sockets. 
+It is used open TCP connections, listen on arbitrary TCP and UDP ports, perform port scanning plus more.
+
+You can also use it as a simple TCP proxies, for network daemon testing, 
+to check if remote ports are reachable and much more. Furthermore, 
+you can employ nc together with pv command to transfer files between two computers.
+
+$ nc -zv server2.tecmint.lan 21 22 80 443 3000
+
+You can also specify a range of ports as shown.
+
+$ nc -zv server2.tecmint.lan 20-90
+
+$ nc -p 3000 -w 10 server2.tecmint.lan 5000 
+
+#### Nmap Command #######
+Nmap (Network Mapper) is a powerful and extremely versatile tool for Linux system/network administrators. It is used gather information about a single host or explore networks an entire network.
+Nmap is also used to perform security scans, network audit and finding open ports on remote hosts and so much more.
+
+$ nmap google.com 
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2018-07-12 09:23 BST
+Nmap scan report for google.com (172.217.166.78)
+Host is up (0.0036s latency).
+rDNS record for 172.217.166.78: bom05s15-in-f14.1e100.net
+Not shown: 998 filtered ports
+PORT    STATE SERVICE
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 4.92 seconds
+
+$ nmap 192.168.0.103
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2018-07-12 09:24 BST
+Nmap scan report for 192.168.0.103
+Host is up (0.000051s latency).
+Not shown: 994 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+25/tcp   open  smtp
+902/tcp  open  iss-realsecure
+4242/tcp open  vrml-multi-use
+5900/tcp open  vnc
+8080/tcp open  http-proxy
+MAC Address: 28:D2:44:EB:BD:98 (Lcfc(hefei) Electronics Technology Co.)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
+
 
 
 
