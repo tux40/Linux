@@ -205,6 +205,176 @@ MAC Address: 28:D2:44:EB:BD:98 (Lcfc(hefei) Electronics Technology Co.)
 Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 
 
+###DNS Lookup Utilities ####
+host Command
+host command is a simple utility for carrying out DNS lookups, it translates host names to IP addresses and vice versa.
+$ host google.com
+
+google.com has address 172.217.166.78
+google.com mail is handled by 20 alt1.aspmx.l.google.com.
+google.com mail is handled by 30 alt2.aspmx.l.google.com.
+google.com mail is handled by 40 alt3.aspmx.l.google.com.
+google.com mail is handled by 50 alt4.aspmx.l.google.com.
+google.com mail is handled by 10 aspmx.l.google.com.
+
+===#dig Command####
+dig (domain information groper) is also another simple DNS lookup utility, 
+that is used to query DNS related information such as A Record, CNAME, MX Record etc, for example:
+$ dig google.com
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-51.el7 <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23083
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 13, ADDITIONAL: 14
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		72	IN	A	172.217.166.78
+
+;; AUTHORITY SECTION:
+com.			13482	IN	NS	c.gtld-servers.net.
+com.			13482	IN	NS	d.gtld-servers.net.
+com.			13482	IN	NS	e.gtld-servers.net.
+com.			13482	IN	NS	f.gtld-servers.net.
+com.			13482	IN	NS	g.gtld-servers.net.
+com.			13482	IN	NS	h.gtld-servers.net.
+com.			13482	IN	NS	i.gtld-servers.net.
+com.			13482	IN	NS	j.gtld-servers.net.
+com.			13482	IN	NS	k.gtld-servers.net.
+com.			13482	IN	NS	l.gtld-servers.net.
+com.			13482	IN	NS	m.gtld-servers.net.
+com.			13482	IN	NS	a.gtld-servers.net.
+com.			13482	IN	NS	b.gtld-servers.net.
+
+;; ADDITIONAL SECTION:
+a.gtld-servers.net.	81883	IN	A	192.5.6.30
+b.gtld-servers.net.	3999	IN	A	192.33.14.30
+c.gtld-servers.net.	14876	IN	A	192.26.92.30
+d.gtld-servers.net.	85172	IN	A	192.31.80.30
+e.gtld-servers.net.	95861	IN	A	192.12.94.30
+f.gtld-servers.net.	78471	IN	A	192.35.51.30
+g.gtld-servers.net.	5217	IN	A	192.42.93.30
+h.gtld-servers.net.	111531	IN	A	192.54.112.30
+i.gtld-servers.net.	93017	IN	A	192.43.172.30
+j.gtld-servers.net.	93542	IN	A	192.48.79.30
+k.gtld-servers.net.	107218	IN	A	192.52.178.30
+l.gtld-servers.net.	6280	IN	A	192.41.162.30
+m.gtld-servers.net.	2689	IN	A	192.55.83.30
+
+;; Query time: 4 msec
+;; SERVER: 192.168.0.1#53(192.168.0.1)
+;; WHEN: Thu Jul 12 09:30:57 BST 2018
+;; MSG SIZE  rcvd: 487
+
+==============
+
+####NSLookup Command###
+$ nslookup google.com
+
+Server:		192.168.0.1
+Address:	192.168.0.1#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 172.217.166.78
+
+$ nslookup 216.58.208.174
+
+Server:		192.168.0.1
+Address:	192.168.0.1#53
+
+Non-authoritative answer:
+174.208.58.216.in-addr.arpa	name = lhr25s09-in-f14.1e100.net.
+174.208.58.216.in-addr.arpa	name = lhr25s09-in-f174.1e100.net.
+
+Authoritative answers can be found from:
+in-addr.arpa	nameserver = e.in-addr-servers.arpa.
+in-addr.arpa	nameserver = f.in-addr-servers.arpa.
+in-addr.arpa	nameserver = a.in-addr-servers.arpa.
+in-addr.arpa	nameserver = b.in-addr-servers.arpa.
+in-addr.arpa	nameserver = c.in-addr-servers.arpa.
+in-addr.arpa	nameserver = d.in-addr-servers.arpa.
+a.in-addr-servers.arpa	internet address = 199.180.182.53
+b.in-addr-servers.arpa	internet address = 199.253.183.183
+c.in-addr-servers.arpa	internet address = 196.216.169.10
+d.in-addr-servers.arpa	internet address = 200.10.60.53
+e.in-addr-servers.arpa	internet address = 203.119.86.101
+f.in-addr-servers.arpa	internet address = 193.0.9.1
+
+
+
+## Tcpdump Command ###
+Tcpdump is a very powerful and widely used command-line network sniffer. 
+It is used to capture and analyze TCP/IP packets transmitted or received over a network on a specific interface.
+
+$ tcpdump -i eth1
+
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s3, link-type EN10MB (Ethernet), capture size 262144 bytes
+09:35:40.287439 IP tecmint.com.ssh > 192.168.0.103.36398: Flags [P.], seq 4152360356:4152360552, ack 306922699, win 270, options [nop,nop,TS val 2211778668 ecr 2019055], length 196
+09:35:40.287655 IP 192.168.0.103.36398 > tecmint.com.ssh: Flags [.], ack 196, win 5202, options [nop,nop,TS val 2019058 ecr 2211778668], length 0
+09:35:40.288269 IP tecmint.com.54899 > gateway.domain: 43760+ PTR? 103.0.168.192.in-addr.arpa. (44)
+09:35:40.333763 IP gateway.domain > tecmint.com.54899: 43760 NXDomain* 0/1/0 (94)
+09:35:40.335311 IP tecmint.com.52036 > gateway.domain: 44289+ PTR? 1.0.168.192.in-addr.arpa. (42)
+
+
+To capture a specific number of packets, use the -c option to enter the desired number.
+
+$ tcpdump -c 5 -i eth1
+
+You can also capture and save packets to a file for later analysis, use the -w flag to specify the output file.
+
+$ tcpdump -w captured.pacs -i eth1
+
+
+###Wireshark Utility
+
+Wireshark is a popular, powerful, versatile and easy to use tool for capturing and analyzing packets in a packet-switched network, 
+in real-time.
+
+You can also save data it has captured to a file for later inspection. 
+It is used by system administrators and network engineers to monitor and inspect the packets for security and troubleshooting purposes.
+
+
+--Bmon Tool
+bmon is a powerful, command line based network monitoring and debugging utility for Unix-like systems, it captures networking related statistics and prints them visually in a human friendly format.
+It is a reliable and effective real-time bandwidth monitor and rate estimator.
+
+--Iptables Firewall
+iptables is a command line tool for configuring, maintaining, and inspecting the tables IP packet filtering and NAT ruleset. It it used to set up and manage the Linux firewall (Netfilter). It allows you to list existing packet filter rules; add or delete or modify packet filter rules; list per-rule counters of the packet filter rules.
+
+You can learn how to use Iptables for various purposes from our simple yet comprehensive guides.
+
+###Firewalld
+
+Firewalld is a powerful and dynamic daemon to manage the Linux firewall (Netfilter), just like iptables. It uses “networks zones” instead of INPUT, OUTPUT and FORWARD CHAINS in iptables. On current Linux distributions such as RHEL/CentOS 7 and Fedora 21+, iptables is actively being replaced by firewalld.
+
+To get started with firewalld, consult these guides listed below:
+
+---
+ UFW (Uncomplicated Firewall)
+
+UFW is a well known and default firewall configuration tool on Debian and Ubuntu Linux distributions. It is used top enable/disable system firewall, add/delete/modify/reset packet filtering rules and much more.
+
+To check UFW firewall status, type.
+
+$ sudo ufw status
+
+If UFW firewall is not active, you can activate or enable it using the following command.
+
+$ sudo ufw enable
+
+To disable UFW firewall, use the following command.
+
+$ sudo ufw disable 
+
+If you want to find more information about a particular program, you can consult its man pages as shown.
+$ man programs_name
 
 
 
