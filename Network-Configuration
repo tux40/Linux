@@ -1,0 +1,30 @@
+#ifconfig 
+to list all interface 
+#ifconfig -a
+To assign IP address
+$ sudo ifconfig eth0 192.168.56.5 netmask 255.255.255.0
+To active an network interface
+$ sudo ifconfig up eth0
+To deactive or shutdown an network
+$ sudo ifconfig down eth0
+Show IP Address and other information
+# ip addr show
+To temporarily assign IP Address
+$ sudo ip addr add 192.168.56.1 dev eth0
+To remove an assign IP Address 
+$ sudo ip addr del 192.168.56.15/24 dev eth0
+command actives a network
+$ sudo ifup eth0
+command disables a network interface 
+$ sudo ifdown eth0
+command use to parse the network configuration
+$ sudo ifquery eth0
+command line utility for querying and modifying network
+$ sudo ethtool enp0s3
+Ping (Packet Internet Grouper) is utility normally used for testing connectivity between two system on a network, It use ICMP 
+(Internet Control Message Protocol)
+
+
+
+
+===https://www.tecmint.com/linux-networking-commands/?fbclid=IwAR0ZZHswWNZDcYTi_Ocr6xtYzrq3TZmvpAzi6xAC9nHs9TqxDCFo9337Rj0===
